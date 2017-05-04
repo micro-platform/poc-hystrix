@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: client-hystrix
+
+server:
+  port: 11010
+
+security:
+  basic:
+    enabled: false
+
