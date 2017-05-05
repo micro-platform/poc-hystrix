@@ -1,13 +1,12 @@
 package com.imta.microservices.eshop.controller;
 
-import com.imta.microservices.eshop.service.LatencyService;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.imta.microservices.eshop.service.CalculService;
+import com.imta.microservices.eshop.wrapper.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 /**
  * <p>Provide 4 routes for basic calculation.</p>
@@ -21,7 +20,7 @@ public class CalculController {
 //    private final String LATENCY_URI = "http://localhost:12020/latency";
 
     @Autowired
-    LatencyService latencyService;
+    CalculService calculService;
 
     /**
      * Calcul the sum between a and b.
@@ -31,11 +30,9 @@ public class CalculController {
      * @return the sum of a+b.
      */
     @RequestMapping(value = "/add/{a}/{b}", method = RequestMethod.GET)
-    public Integer add(@PathVariable Integer a,
-                       @PathVariable Integer b) {
-        final Integer result = a + b;
-        latencyService.latency();
-        return result;
+    public Double add(@PathVariable Integer a,
+                      @PathVariable Integer b) {
+        return calculService.askCalcul(Operation.ADD, a, b);
     }
 
     /**
@@ -46,11 +43,9 @@ public class CalculController {
      * @return the sum of a-b.
      */
     @RequestMapping(value = "/substract/{a}/{b}", method = RequestMethod.GET)
-    public Integer remove(@PathVariable Integer a,
-                          @PathVariable Integer b) {
-        final Integer result = a - b;
-        latencyService.latency();
-        return result;
+    public Double substract(@PathVariable Integer a,
+                            @PathVariable Integer b) {
+        return calculService.askCalcul(Operation.SUBSTRACT, a, b);
     }
 
     /**
@@ -63,9 +58,7 @@ public class CalculController {
     @RequestMapping(value = "/multiply/{a}/{b}", method = RequestMethod.GET)
     public Double multiply(@PathVariable Integer a,
                            @PathVariable Integer b) {
-        final Double result = Double.valueOf(a * b);
-        latencyService.latency();
-        return result;
+        return calculService.askCalcul(Operation.MULTIPLY, a, b);
     }
 
     /**
@@ -78,8 +71,6 @@ public class CalculController {
     @RequestMapping(value = "/divide/{a}/{b}", method = RequestMethod.GET)
     public Double divide(@PathVariable Integer a,
                          @PathVariable Integer b) {
-        final Double result = Double.valueOf(a / b);
-        latencyService.latency();
-        return result;
+        return calculService.askCalcul(Operation.DIVIDE, a, b);
     }
 }
