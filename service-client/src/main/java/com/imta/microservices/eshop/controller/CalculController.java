@@ -1,5 +1,8 @@
 package com.imta.microservices.eshop.controller;
 
+import com.imta.microservices.eshop.service.LatencyService;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,7 +18,10 @@ import org.springframework.web.client.RestTemplate;
 @RestController(value = "/calcul")
 public class CalculController {
 
-    private final String LATENCY_URI = "http://localhost:12020/latency";
+//    private final String LATENCY_URI = "http://localhost:12020/latency";
+
+    @Autowired
+    LatencyService latencyService;
 
     /**
      * Calcul the sum between a and b.
@@ -28,8 +34,7 @@ public class CalculController {
     public Integer add(@PathVariable Integer a,
                        @PathVariable Integer b) {
         final Integer result = a + b;
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getForObject(LATENCY_URI, Integer.class); //just to simulates long process.
+        latencyService.latency();
         return result;
     }
 
@@ -44,8 +49,7 @@ public class CalculController {
     public Integer remove(@PathVariable Integer a,
                           @PathVariable Integer b) {
         final Integer result = a - b;
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getForObject(LATENCY_URI, Integer.class); //just to simulates long process.
+        latencyService.latency();
         return result;
     }
 
@@ -60,8 +64,7 @@ public class CalculController {
     public Double multiply(@PathVariable Integer a,
                            @PathVariable Integer b) {
         final Double result = Double.valueOf(a * b);
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getForObject(LATENCY_URI, Integer.class); //just to simulates long process.
+        latencyService.latency();
         return result;
     }
 
@@ -76,8 +79,7 @@ public class CalculController {
     public Double divide(@PathVariable Integer a,
                          @PathVariable Integer b) {
         final Double result = Double.valueOf(a / b);
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getForObject(LATENCY_URI, Integer.class); //just to simulates long process.
+        latencyService.latency();
         return result;
     }
 }
