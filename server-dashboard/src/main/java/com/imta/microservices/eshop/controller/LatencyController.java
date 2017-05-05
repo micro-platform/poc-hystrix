@@ -1,7 +1,10 @@
 package com.imta.microservices.eshop.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * <p>This is the RestController which give a route
@@ -15,9 +18,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class LatencyController {
 
-    @RequestMapping("/latency")
+
+    @RequestMapping(value = "/latency",
+            method = RequestMethod.GET)
     public Integer latency() {
-        // TODO: 04/05/17 implements latency
-        return 66;
+        final int min = 0;
+        final int max = 2000;
+
+        final int randomNum = ThreadLocalRandom.current().nextInt(min, max + 1);
+
+        try {
+            Thread.sleep(randomNum);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return randomNum;
     }
 }
