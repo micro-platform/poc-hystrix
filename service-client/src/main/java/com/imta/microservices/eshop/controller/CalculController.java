@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
  * <p>Provide 4 routes for basic calculation.</p>
  * <p>The + and - operations call the service which use @HystrixCommand annotation.</p>
  * <p>The * and / operations call the service which use external Hystrix Command.</p>
+ *
  * @author Steeve Sinigaglia
  * @since 0.1
  */
@@ -55,8 +56,9 @@ public class CalculController {
      */
     @RequestMapping(value = "/multiply/{a}/{b}", method = RequestMethod.GET)
     public Double multiply(@PathVariable Integer a,
-                           @PathVariable Integer b) {
-        return calculService.askCalculV2(Operation.MULTIPLY, a, b);
+                           @PathVariable Integer b,
+                           @RequestParam Integer latency) {
+        return calculService.askCalculV2(Operation.MULTIPLY, a, b, latency);
     }
 
     /**
@@ -68,7 +70,8 @@ public class CalculController {
      */
     @RequestMapping(value = "/divide/{a}/{b}", method = RequestMethod.GET)
     public Double divide(@PathVariable Integer a,
-                         @PathVariable Integer b) {
-        return calculService.askCalculV2(Operation.DIVIDE, a, b);
+                         @PathVariable Integer b,
+                         @RequestParam Integer latency) {
+        return calculService.askCalculV2(Operation.DIVIDE, a, b, latency);
     }
 }

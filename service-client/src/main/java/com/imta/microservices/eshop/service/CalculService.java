@@ -39,7 +39,6 @@ public class CalculService {
 
         RestTemplate restTemplate = new RestTemplate();
         System.out.println(LATENCY_URI + op + "/" + a + "/" + b);
-//        return restTemplate.getForObject(LATENCY_URI + op + "/" + a + "/" + b, Double.class); //just to simulates long process.
         return restTemplate.getForObject(targetUrl, Double.class);
     }
 
@@ -53,8 +52,8 @@ public class CalculService {
     //Alternatively we can use a Hystrix Command classes :
 
     //todo javadoc
-    public Double askCalculV2(Operation op, Integer a, Integer b) {
-        return new CalculCommand(LATENCY_URI, op, a, b).execute();
+    public Double askCalculV2(Operation op, Integer a, Integer b, Integer latency) {
+        return new CalculCommand(LATENCY_URI, op, a, b, latency).execute();
     }
 }
 
