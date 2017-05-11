@@ -1,10 +1,7 @@
 package com.imta.microservices.eshop.controller;
 
 import com.imta.microservices.eshop.wrapper.Operation;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -25,9 +22,10 @@ public class CalculController {
             method = RequestMethod.GET)
     public Double calcul(@PathVariable Operation op,
                          @PathVariable Integer a,
-                         @PathVariable Integer b) {
-        final int min = 0;
-        final int max = 2000;
+                         @PathVariable Integer b,
+                         @RequestParam(name = "latency") String latency) {
+//        final int min = 0;
+//        final int max = 2000;
 
         Double result;
 
@@ -49,11 +47,11 @@ public class CalculController {
         }
 
 
-        final int randomNum = ThreadLocalRandom.current().nextInt(min, max + 1);
+//        final int randomNum = ThreadLocalRandom.current().nextInt(min, max + 1);
         System.out.println("receive " + a + op + b + "=" + result);
-        System.out.println("wait for " + randomNum);
+//        System.out.println("wait for " + randomNum);
         try {
-            Thread.sleep(randomNum);
+            Thread.sleep(Integer.parseInt(latency));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

@@ -3,10 +3,7 @@ package com.imta.microservices.eshop.controller;
 import com.imta.microservices.eshop.service.CalculService;
 import com.imta.microservices.eshop.wrapper.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>Provide 4 routes for basic calculation.</p>
@@ -30,8 +27,9 @@ public class CalculController {
      */
     @RequestMapping(value = "/add/{a}/{b}", method = RequestMethod.GET)
     public Double add(@PathVariable Integer a,
-                      @PathVariable Integer b) {
-        return calculService.askCalcul(Operation.ADD, a, b);
+                      @PathVariable Integer b,
+                      @RequestParam Integer latency) {
+        return calculService.askCalcul(Operation.ADD, a, b, latency);
     }
 
     /**
@@ -43,8 +41,9 @@ public class CalculController {
      */
     @RequestMapping(value = "/substract/{a}/{b}", method = RequestMethod.GET)
     public Double substract(@PathVariable Integer a,
-                            @PathVariable Integer b) {
-        return calculService.askCalcul(Operation.SUBSTRACT, a, b);
+                            @PathVariable Integer b,
+                            @RequestParam Integer latency) {
+        return calculService.askCalcul(Operation.SUBSTRACT, a, b, latency);
     }
 
     /**

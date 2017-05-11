@@ -8,6 +8,9 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.net.URI;
 
 /**
  * <p>TODO</p>
@@ -25,15 +28,24 @@ public class CalculService {
                     @HystrixProperty(name = HystrixProperties.TIMEOUT,
                             value = "500")
             })
-    public Double askCalcul(Operation op, Integer a, Integer b) {
+    public Double askCalcul(Operation op, Integer a, Integer b, Integer latency) {
+
+        URI targetUrl = UriComponentsBuilder.fromUriString(LATENCY_URI)
+                .path(op + "/" + a + "/" + b)
+                .queryParam("latency", latency)
+                .build()
+                .encode()
+                .toUri();
+
         RestTemplate restTemplate = new RestTemplate();
         System.out.println(LATENCY_URI + op + "/" + a + "/" + b);
-        return restTemplate.getForObject(LATENCY_URI + op + "/" + a + "/" + b, Double.class); //just to simulates long process.
+//        return restTemplate.getForObject(LATENCY_URI + op + "/" + a + "/" + b, Double.class); //just to simulates long process.
+        return restTemplate.getForObject(targetUrl, Double.class);
     }
 
 
     //Fallback @todo javadoc
-    public Double defaultCalcul(Operation op, Integer a, Integer b) {
+    public Double defaultCalcul(Operation op, Integer a, Integer b, Integer latency) {
         return Double.valueOf(-1);
     }
 
