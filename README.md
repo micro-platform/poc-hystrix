@@ -6,22 +6,20 @@ This project uses
 
 ### Prerequisites
 
-Installing :
-
 * [Java JDK 1.8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 * [Maven](https://maven.apache.org/) - Dependency Management
 
-And cloning the project :
+Clone this project :
 
 ```git clone https://github.com/micro-platform/poc-hystrix.git ```
 
 ## Description
 
-This project was composed of 3 projects.
+This project is composed of 3 components.
 
 * ```hystrix-dashboard``` : standalone jar from [kennedyoliveira repository](https://github.com/kennedyoliveira/standalone-hystrix-dashboard).
 * ```server-mock-latency``` : this a spring-boot application which receive somes arithmeticals operations (+,-,/,*) and take in params a ```latency``` parameters in order to simulate a timeout like a long process from databases for example.
-* ```service-client``` : this a spring-boot application consumed by a client (you) to ask arithmeticals operations. The ```service``` will transfert the query to ```server-mock-latency``` which make the calcul and return the result after a specified ```time latency```.
+* ```client-service``` : this a spring-boot application consumed by a client (you) to ask arithmeticals operations. The ```service``` will transfert the query to ```server-mock-latency``` which make the calcul and return the result after a specified ```time latency```.
 
 # TODO ADD DIAGRAMS.
 
@@ -34,7 +32,7 @@ cd server-mock-latency
 mvn spring-boot:run
 ```
 
-And a server will start at ```localhost:12020```
+A server will start at ```localhost:12020```
 
 ### Starting the service-client
 
@@ -62,7 +60,7 @@ Go on http://localhost:7979/hystrix-dashboard/ and enter the following Stream : 
 
 ### Send a first request
 
-Hystrix-dashboard still waiting for a request on your ```client-service```.
+Hystrix-dashboard will keep loading until a request is sent on the ```client-service```.
 You can use tools like [Postman](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop) to send your http request, or just use ```curl``` as follow :
 
 ``` curl http://localhost:11010/add/5/4?latency=250 ```
@@ -78,7 +76,7 @@ If the request is longer than 500ms, the ```fallback``` method of hystrix is cal
 * Timeout for ```add``` and ```remove``` will result : ```-1``` as result.
 * Timeout for ```multiply``` and ```divide``` will result : ```-2000``` as result.
 
-So, let's try to reach a timeout (and watch the hystrix-dashboard):
+So, let's try to reach a timeout (looking at the hystrix dashboard):
 
 ``` curl http://localhost:11010/add/5/4?latency=1000 ``` --> you will receive ```-1```.
 
@@ -87,7 +85,7 @@ you will receive ```-2000```.
 
 ### Stress the webservice and look hystrix play it circuit breaker role
 
-The goal is to send many request at the same time on a short period in order to let hystrix open the circuit.
+The goal is to send many requests at the same time in a short period in order to let hystrix open the circuit.
 
 You can use a tool like [wrk](https://github.com/wg/wrk) to stress the application.
 
@@ -95,4 +93,4 @@ You can use a tool like [wrk](https://github.com/wg/wrk) to stress the applicati
 
 This runs a benchmark for 30 seconds, using 12 threads, and keeping 400 HTTP connections open.
 
-You can observe on hystrix dashboard the circuit state switch many time between "closed" and "open".
+You can observe on the hystrix dashboard the circuit state switch many times between "closed" and "open".

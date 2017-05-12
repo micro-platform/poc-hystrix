@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.imta.microservices.eshop</groupId>
-    <artifactId>poc-hystrix-server-dashboard</artifactId>
+    <artifactId>poc-hystrix-server-mock-latency</artifactId>
     <version>0.1</version>
     <packaging>jar</packaging>
     <description>Mock of heavy process in order to simulate a random time response.</description>

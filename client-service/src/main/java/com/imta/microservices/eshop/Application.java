@@ -3,8 +3,10 @@ package com.imta.microservices.eshop; /**
  */
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 /**
  * <p>This class is the starting point of the Spring Boot Application.</p>
@@ -13,11 +15,11 @@ import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboar
  * @since 0.1
  */
 @SpringBootApplication
-@EnableHystrixDashboard
-public class HystrixApplication {
-
+@EnableAutoConfiguration
+@EnableWebMvc
+public class Application {
     public static void main(String[] args) {
-        SpringApplication.run(HystrixApplication.class, args);
+        SpringApplication.run(Application.class, args);
     }
 
 }
