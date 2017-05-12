@@ -42,7 +42,6 @@ public class CalculCommand extends HystrixCommand<Double> {
         return Double.valueOf(-2000);
     }
 
-
     @Override
     protected Double run() throws Exception {
         java.net.URI targetUrl = UriComponentsBuilder.fromUriString(URI)
