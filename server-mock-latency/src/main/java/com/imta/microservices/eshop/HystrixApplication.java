@@ -4,7 +4,6 @@ package com.imta.microservices.eshop; /**
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
 
 /**
  * <p>This class is the starting point of the Spring Boot Application.</p>
