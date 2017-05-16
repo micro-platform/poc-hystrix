@@ -7,7 +7,13 @@
     </formats>
     <fileSets>
         <fileSet>
-            <directory>release</directory>
+            <directory>release/hystrix-dashboard</directory>
+        </fileSet>
+        <fileSet>
+            <directory>release/client-service</directory>
+        </fileSet>
+        <fileSet>
+            <directory>release/server-mock-latency</directory>
         </fileSet>
     </fileSets>
 </assembly>
