@@ -1,7 +1,7 @@
 # Poc-hystrix
 
 This project experiments on Netflix's [Hystrix](https://github.com/Netflix/Hystrix) implementation
-of the circuit-breaker pattern. 
+of the circuit-breaker pattern.
 
 ## Installation
 
@@ -22,7 +22,9 @@ This project is composed of 3 components.
 * ```server-mock-latency``` : this a spring-boot application which receive somes arithmeticals operations (+,-,/,*) and take in params a ```latency``` parameters in order to simulate a timeout like a long process from databases for example.
 * ```client-service``` : this a spring-boot application consumed by a client (you) to ask arithmeticals operations. The ```service``` will transfert the query to ```server-mock-latency``` which make the calcul and return the result after a specified ```time latency```.
 
-# TODO ADD DIAGRAMS.
+![alt text](https://img4.hostingpics.net/pics/379951PocHystrix.png)
+
+
 
 ## Deployment
 
