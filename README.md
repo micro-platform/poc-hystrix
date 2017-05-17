@@ -1,6 +1,7 @@
-# poc-hystrix
+# Poc-hystrix
 
-This project uses
+This project experiments on Netflix's [Hystrix](https://github.com/Netflix/Hystrix) implementation
+of the circuit-breaker pattern. 
 
 ## Installation
 
