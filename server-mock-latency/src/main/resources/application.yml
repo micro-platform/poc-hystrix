@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: server-dashboard
+
+server:
+  port: 12020
+
+security:
+  basic:
+    enabled: false
+
