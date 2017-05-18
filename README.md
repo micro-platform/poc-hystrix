@@ -55,6 +55,33 @@ java -jar standalone-hystrix-dashboard-{VERSION}-all.jar
 
 The web interface is accessible on : ```http://localhost:7979/hystrix-dashboard/```
 
+### Docker
+
+There are Dockerfiles in each component's folder if you want to deploy via Docker
+Ports to map:
+    - client-service: 11010
+    - server-mock-latency: 12020
+    - hystrix-dashboard: 7979
+    
+### Ansible
+
+There is also an Ansible playbook to deploy the full poc in one command. It is available [here](https://github.com/micro-platform/ansible-playbooks/blob/master/plays/deploy-poc-hystrix.yml)
+ 
+## Release
+    
+To do a release, you first have to change the versions of each components (including the parent).
+Then on the parent's folder, execute:
+
+```
+mvn clean install
+```
+
+This will create a release folder with all the executables along their Dockerfile and a zip of that folder.
+Then, you just have to do a release on github by uploading this zip file.
+
+*NB: The zip file sometimes contains only one component. To resolve that, just ```mvn install``` again*
+
+    
 ## Tests
 
 ### Connect Hystrix dashboard to hystrix-metrics from service-client
