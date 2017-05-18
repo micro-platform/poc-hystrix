@@ -58,10 +58,11 @@ The web interface is accessible on : ```http://localhost:7979/hystrix-dashboard/
 ### Docker
 
 There are Dockerfiles in each component's folder if you want to deploy via Docker
-Ports to map:
-    - client-service: 11010
-    - server-mock-latency: 12020
-    - hystrix-dashboard: 7979
+
+Ports to map :
+* ```client-service``` : **11010**
+* ```server-mock-latency``` : **12020**
+* ```hystrix-dashboard``` : **7979**
     
 ### Ansible
 
